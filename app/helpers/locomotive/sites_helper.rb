@@ -8,17 +8,15 @@ module Locomotive
     end
 
     def options_for_site_locales
-      Rails.cache.fetch(base_cache_key_without_site + ['locales']) do
-        (Locomotive.config.site_locales - [:ca, :"sv-FI"]).map do |locale|
-          text          = I18n.t("locomotive.locales.#{locale}", default: locale)
-          nice_display  = h("#{flag_tag(locale)} #{text} &ndash; #{locale}")
+      ([:en, :de, :hu]).map do |locale|
+        text          = I18n.t("locomotive.locales.#{locale}", default: locale)
+        nice_display  = h("#{flag_tag(locale)} #{text} &ndash; #{locale}")
 
-          [
-            text,
-            locale,
-            { :"data-display" => nice_display.html_safe }
-          ]
-        end
+        [
+          text,
+          locale,
+          { :"data-display" => nice_display.html_safe }
+        ]
       end
     end
 
